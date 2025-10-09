@@ -4,9 +4,9 @@ import Header from '../components/Header'
 
 import axios from "axios"
 
-const HomePage = () => {
+const HomePage = ({cart}) => {
   const [products, setProducts] = useState([]);
-  const [cart, setCart] = useState([]);
+
 
   useEffect(()=>{
        axios.get(`/api/products`)
@@ -14,11 +14,7 @@ const HomePage = () => {
        setProducts(response.data);
        })
 
-       axios.get(`/api/cart-items`)
-       .then((res)=>{
-        console.log("cart", res)
-         setCart(res.data)
-       })
+   
   },[])
 
 
