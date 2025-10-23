@@ -5,25 +5,28 @@ import axios from "axios"
 import { formatMoney } from '../../utils/money'
 import ProductsGrid from './ProductsGrid'
 
-const HomePage = ({cart}) => {
+const HomePage = ({ cart }) => {
   const [products, setProducts] = useState([]);
 
 
-  useEffect(()=>{
-       axios.get(`/api/products`)
-       .then((response)=>{
-       setProducts(response.data);
-       })
-  },[])
-return (
-  <>
-    <title>Ecommerce Project</title>
-    <Header cart={cart} />
+  useEffect(async () => {
+    const getHomeData= async ()=>{
+    const response = await axios.get(`/api/products`)
+    setProducts(response.data);
+    }
 
-    <div className="home-page">
-      <ProductsGrid products={products} />
+    getHomeData();
+  }, []);
 
-    </div> 
+  return (
+    <>
+      <title>Ecommerce Project</title>
+      <Header cart={cart} />
+
+      <div className="home-page">
+        <ProductsGrid products={products} />
+
+      </div>
     </>
   )
 
